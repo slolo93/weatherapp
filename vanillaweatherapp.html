@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    h1, h2, h3, p {
+      text-align: center;
+    }
+  </style>
+  <script>
+    // Function to fetch weather data from the API
+    function fetchWeather() {
+      // Replace {lat}, {lon}, and {API key} with your actual values
+      const lat = 0; // Replace with latitude
+      const lon = 0; // Replace with longitude
+      const apiKey = "YOUR_API_KEY"; // Replace with your OpenWeatherMap API key
+
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+      // Make a GET request to the API
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          // Extract the relevant weather information from the API response
+          const cityName = data.name;
+          const temperature = data.main.temp;
+          const weatherIcon = data.weather[0].icon;
+
+          // Update the HTML elements with the fetched data
+          document.getElementById("cityName").innerText = cityName;
+          document.getElementById("temperature").innerText = temperature + "° F";
+          document.getElementById("weatherIcon").src = `https://openweathermap.org/img/w/${weatherIcon}.png`;
+        })
+        .catch(error => {
+          console.log("Error fetching weather data:", error);
+        });
+    }
+
+    // Call the fetchWeather function when the page loads
+    window.addEventListener("DOMContentLoaded", fetchWeather);
+  </script>
+</head>
+<body>
+  <h1 id="cityName">West Palm Beach, FL</h1>
+  <h2 id="temperature"></h2>
+  <img id="weatherIcon" src="" alt="Weather Icon">
+  <p>H: 88°</p>
+  <p>L: 73°</p>
+  <h3><strong>5-Day Forecast</strong></h3>
+  <p>Today 83° F</p>
+  <p>Monday 88° F</p>
+  <p>Tuesday 86° F</p>
+  <p>Wednesday 86° F</p>
+  <p>Thursday 85° F</p>
+</body>
+</html>
+
+
